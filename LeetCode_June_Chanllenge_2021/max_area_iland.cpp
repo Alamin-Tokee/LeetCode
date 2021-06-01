@@ -55,14 +55,14 @@ public:
     void dfs(int row,int col,vector<vector<int>>&grid,int& ans){
         if(i < 0 || j < 0 || row >= grid.size() || col >= grid[0].size() || grid[row][col]==0) return;
 
-        ans++;
-
         grid[row][col]=0;
 
-        dfs(row+1,col,grid);
-        dfs(row-1,col,grid)
-        dfs(row,col+1,grid);
-        dfs(row,col-1,grid)
+        ans++;
+
+        dfs(row+1,col,grid,ans);
+        dfs(row-1,col,grid,ans);
+        dfs(row,col+1,grid,ans);
+        dfs(row,col-1,grid,ans);
 
     }
 
