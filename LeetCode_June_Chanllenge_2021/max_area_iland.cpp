@@ -47,13 +47,13 @@ public:
     }
 };
 
-//Time Complexity O(N+M);
+//Time Complexity O(N*M);
 //Space Complexity O(1)
 
 class Solution {
 public:
     void dfs(int row,int col,vector<vector<int>>&grid,int& ans){
-        if(i < 0 || j < 0 || row >= grid.size() || col >= grid[0].size() || grid[row][col]==0) return;
+        if(row < 0 || col < 0 || row >= grid.size() || col >= grid[0].size() || grid[row][col]==0) return;
 
         grid[row][col]=0;
 
@@ -85,5 +85,5 @@ public:
     }
 };
 
-//Time Complexity O(N+M)
+//Time Complexity O(N*M)
 //Space Complexity O(1)
