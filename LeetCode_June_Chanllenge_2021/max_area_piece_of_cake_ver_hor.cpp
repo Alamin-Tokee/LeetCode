@@ -1,3 +1,4 @@
+//Aproachh one 
 //Time Complexity O(hlogh) + O(vlogv)
 //Space Complexity O(1)
 
@@ -26,6 +27,35 @@ public:
         }
         
         return (( maxHor% 1000000007) * (maxVer%1000000007)) % 1000000007;
+    }
+};
+
+//Aproach Two
+//Time Complexity O(hlogh) + O(vlogv)
+//Space Complexity O(1)
+
+class Solution {
+public:
+    long long getArea(vector<int>& cuts,int size){
+        cuts.push_back(0);
+        cuts.push_back(size);
+        
+        sort(begin(cuts),end(cuts));
+        
+        int res=0;
+        
+        for(int i=0;i<cuts.size()-1;i++){
+            res=max(res,cuts[i+1]-cuts[i]);
+        }
+        
+        return res;
+        
+    }
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        
+        long long ans=getArea(horizontalCuts,h)*getArea(verticalCuts,w);
+        
+        return ans % 1000000007;
     }
 };
 
