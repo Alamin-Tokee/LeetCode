@@ -55,3 +55,40 @@ public:
         return -1;
     }
 };
+
+
+//Second Apprach
+
+class Solution {
+public:
+    int openLock(vector<string>& deadends, string target) {
+        unordered_set<string> seen (begin(deadends),end(deadends));
+        
+        if(!seen.count("0000")){
+            int ans=0;
+            queue<string> q;
+            q.push("0000");
+            seen.insert("0000");
+            
+            while(!q.empty()){
+                for(int n=size(q); n>0; --n){
+                    string s=q.front(); q.pop();
+                    if(s==target) return ans;
+                    
+                    for(int i=0; i < 4; ++i){
+                        for(int chg= -1; chg <= 1; chg += 2){
+                            string ss=s;
+                            ss[i]= '0' + (ss[i] - '0' + chg + 10) % 10;
+                            if(!seen.count(ss)){
+                                seen.insert(ss);
+                                q.push(ss);
+                            }
+                        }
+                    }
+                }
+                ans++;
+            }
+        }
+        return -1;
+    }
+};
