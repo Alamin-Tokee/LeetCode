@@ -92,3 +92,51 @@ public:
         return -1;
     }
 };
+
+
+
+//Third Approach 
+
+class Solution {
+public:
+    
+    #pragma GCC optimize("Ofast")
+    
+    bool check(string& s, unordered_set < string >& deadends, vector < bool >& vis){
+        // check string to know if it tried before of is already exist in deadends
+        return deadends.find(s) == deadends.end() && !vis[stoi(s)];
+    }
+    
+    vector < string > moves(string& s, int idx){
+        // forward one and backward one
+        vector < string > res(2, s);
+        res.front()[idx] = '0' + (res.front()[idx] - '0' + 1) % 10;
+        res.back()[idx] = '0' + (res.back()[idx] - '0' - 1 + 10) % 10;
+        return res;
+    }
+    
+    int openLock(vector<string>& deadends, string target) {
+        ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
+        vector < bool > vis(1e5);
+        unordered_set<string> dead(begin(deadends), end(deadends));
+        string beg = "0000";
+        if(dead.find(beg) != dead.end()) return -1;
+        if(target == beg) return 0;
+        int minimum_moves = 0, sz;
+        queue < string > bfs({beg});
+        while(!bfs.empty()){
+            minimum_moves++, sz = bfs.size();
+            for(int j = 0; j < sz; j++){
+                string top = bfs.front();
+                bfs.pop();
+                for(int i = 0; i < 4; i++){
+                    for(auto& option : moves(top, i))
+                        if(check(option, dead, vis))
+                           if(option == target) return minimum_moves;
+                           else bfs.push(option), vis[stoi(option)] = true;
+                }
+            }
+        }
+        return -1;
+    }
+};
