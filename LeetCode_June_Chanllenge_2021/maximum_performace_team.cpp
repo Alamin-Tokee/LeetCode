@@ -32,3 +32,9 @@ public:
         return ans % (int)(1e9+7);
     }
 };
+
+
+
+sort(engineers.begin(), engineers.end(), [](pair<int, int>& a, pair<int, int>& b) {return a.first > b.first;});      
+auto comp = [](int n1, int n2) { return n1 > n2; };
+priority_queue<int, vector<int>, decltype(comp)> pq(comp);
