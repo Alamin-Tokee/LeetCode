@@ -38,3 +38,38 @@ public:
 sort(engineers.begin(), engineers.end(), [](pair<int, int>& a, pair<int, int>& b) {return a.first > b.first;});      
 auto comp = [](int n1, int n2) { return n1 > n2; };
 priority_queue<int, vector<int>, decltype(comp)> pq(comp);
+
+
+
+class Solution {
+public:
+    const int mod=1e9+7;
+    int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
+    
+        vector<pair<int,int>>vec;
+        
+        for(int i=0;i<n;i++){
+            vec.push_back({efficiency[i],speed[i]});
+        }
+        
+        sort(vec.rbegin(),vec.rend());
+        
+       
+        multiset<int>pq;
+        
+        long sum=0, ans=0;
+        
+        for(auto x : vec){
+            sum+=x.second;
+            pq.insert(x.second);
+            if(pq.size() > k){
+                sum-=(*pq.begin());
+                pq.erase(pq.begin());
+            }
+            
+            ans=max(ans, sum*x.first);
+        }
+        
+        return ans % mod;
+    }
+};
