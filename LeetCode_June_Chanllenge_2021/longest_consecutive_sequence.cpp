@@ -37,3 +37,34 @@ public:
         return ma;
     }
 };
+
+
+//Second Approach using map
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int,int> m;
+        for(int x:nums)
+            m[x]++;
+        int ans=0,count;
+        for(int x:nums)
+        {
+            if(m.find(x-1)==m.end())  // find first element of all consecutive subsequence 
+            {
+                int k=x;
+                count=0;
+                while(m.find(k)!=m.end())
+                {
+                    k++;
+                    count++;
+                }
+                ans=max(ans,count);
+            }
+        }
+        
+        // O(2N) ==> O(N)
+        return ans;
+    }
+};
+
