@@ -1,3 +1,6 @@
+//Top Down Approach 
+//Time Complexity O(n^2)
+//Space complexity O(n^2)
 class Solution {
 public:
     int dp[1001][1001];
@@ -27,5 +30,25 @@ public:
         int val=solve(stones,0,n-1,sum);
         
         return val;
+    }
+};
+
+//Bottom Up Approach 
+//Time Complexity O(n^2)
+//Space complexity O(n^2)
+class Solution {
+public:
+    int stoneGameVII(vector<int>& A) {
+        int N = A.size();
+        vector<int> store(N + 1);
+        for (int i = 0; i < N; ++i) store[i + 1] = store[i] + A[i];
+        vector<vector<int>> dp(N, vector<int>(N));
+        for (int len = 2; len <= N; ++len) {
+            for (int i = 0; i <= N - len; ++i) {
+                int j = i + len - 1;
+                dp[i][j] = max(store[j + 1] - store[i + 1] - dp[i + 1][j], store[j] - store[i] - dp[i][j - 1]);
+            }
+        }
+        return dp[0][N - 1];
     }
 };
