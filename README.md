@@ -10,4 +10,6 @@ Leetcode program and useful description. All will update here regarding leetcode
 7. Problem 746: Min Cost Climbing Stairs
 8. Problem 729: My Calender i
 9. Problem 1696: Jump Game Vi
+10. Problem 1690: Stone Game Vii
+
 
