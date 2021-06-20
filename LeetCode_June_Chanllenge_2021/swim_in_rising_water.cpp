@@ -114,3 +114,50 @@ public:
         return distance[n-1][n-1];
     }
 };
+
+
+//Binary Search and DFS approach
+// Time complexity ==>
+// For Binary search : O(log(2499)) {n is atmost 50 * 50 -1}
+// For Recursive call : O(n^2) {we visit each element once ,and mark it as visited }
+// Total = O(n^2)
+
+// Space Complexity ==>
+// Recurrsion stack : O(n^2)
+// For visited array : O(n^2)
+// Total = O(n^2)
+
+class Solution {
+public:
+    vector<vector<int>>dirs ={{0,1},{1,0},{-1,0},{0,-1}};
+    bool dfs(vector<vector<int>>& grid,int i,int j,int time,vector<vector<int>> &dp){
+        dp[i][j]=1;
+        
+        for(auto &dir:dirs){
+            int r=i+dir[0];
+            int c=j+dir[1];
+            if(r>=0 && c>=0 && r<grid.size() && c<grid[0].size() && grid[r][c]<=time  &&dp[r][c]==0){
+                if(r==grid.size()-1 && c==grid.size()-1) return true;
+                
+                if(dfs(grid,r,c,time,dp)) return true;
+            }
+        }
+        return false;
+    }
+    int swimInWater(vector<vector<int>>& grid) {
+        int n=grid.size();
+        
+        int low=grid[0][0],high=n*n-1;
+        while(low < high){
+            int mid=low+(high-low)/2;
+            vector<vector<int>>dp(n,vector<int>(n,0));
+            if(dfs(grid,0,0,mid,dp)){
+                high=mid;
+            }else{
+                low=mid+1;
+            }
+        }
+        
+        return low;
+    }
+};
