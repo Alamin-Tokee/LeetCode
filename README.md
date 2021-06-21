@@ -16,3 +16,4 @@ Leetcode program and useful description. All will update here regarding leetcode
 13. Problem 473: Matchsticks to Square
 14. Problem 795: Number of Subarrays with Bounded Maximum
 15. Problem 307: Range Sum Query - Mutable
+16. Problem 118: Pascal's Triangle
