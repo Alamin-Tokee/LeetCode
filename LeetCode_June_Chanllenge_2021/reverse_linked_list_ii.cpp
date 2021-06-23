@@ -62,3 +62,55 @@ public:
         return head;
     }
 };
+
+
+//Using Recursion 
+
+class Solution {
+public:
+    ListNode* Reverse(ListNode* head,ListNode* right){
+        if(!head || !head->next || head==right) return head;
+        
+        ListNode* last=Reverse(head->next,right);
+        head->next->next=head;
+        head->next=NULL;
+        
+        return last;
+    }
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode* leftNode=NULL;
+        ListNode* leftPrev=NULL;
+        ListNode* RightNode=NULL;
+        ListNode* rightNext=NULL;
+        
+        ListNode* curr = head;
+        int c=1;
+        while(c < left){
+            leftPrev = curr;
+            curr=curr->next;
+            c++;
+        }
+        leftNode=curr;
+        
+        while(c < right){
+            curr=curr->next;
+            c++;
+        }
+        
+        RightNode=curr;
+        
+        rightNext=RightNode->next;
+        
+        ListNode* temp=Reverse(leftNode,RightNode);
+        
+        if(leftPrev && leftPrev->next){
+            leftPrev->next->next=rightNext;
+            leftPrev->next=temp;
+        }else{
+            head->next=rightNext;
+            head=temp;
+        }
+        
+        return head;
+    }
+};
