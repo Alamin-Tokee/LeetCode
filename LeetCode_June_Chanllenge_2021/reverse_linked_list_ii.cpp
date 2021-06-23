@@ -114,3 +114,38 @@ public:
         return head;
     }
 };
+
+
+//Iterative Approach 
+
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if(head==NULL ||  head->next==NULL) return head;
+        
+        ListNode* dummy=new ListNode(-1);
+        dummy->next=head;
+        
+        ListNode* node=dummy;
+        ListNode* preNode=NULL;
+        
+        for(int i=0;i<left;i++){
+            preNode=node;
+            node=node->next;
+        }
+        ListNode* NodeR=node;
+        ListNode* preN=preNode;
+        
+        for(int i=left;i<=right;i++){
+            ListNode* forward=NodeR->next;
+            NodeR->next=preN;
+            preN=NodeR;
+            NodeR=forward;
+        }
+        preNode->next=preN;
+        node->next=NodeR;
+        
+        return dummy->next;
+        
+    }
+};
