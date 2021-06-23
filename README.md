@@ -17,3 +17,4 @@ Leetcode program and useful description. All will update here regarding leetcode
 14. Problem 795: Number of Subarrays with Bounded Maximum
 15. Problem 307: Range Sum Query - Mutable
 16. Problem 118: Pascal's Triangle
+17. Problem 92: Reverse Linked List II
