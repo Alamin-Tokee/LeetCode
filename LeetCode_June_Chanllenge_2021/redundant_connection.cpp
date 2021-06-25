@@ -41,4 +41,36 @@ public:
     }
 };
 
+//Rank by Comprehension Approcah
+class Solution {
+public:
+    vector<int>nodes,rank;
+    int find(int a){
+        if(nodes[a]==-1) return a;
+        else return nodes[a]=find(nodes[a]);
+    }
+    void Union(int a,int b){
+        int fa=find(a), fb=find(b);
+        
+        if(rank[fa] > rank[fb])
+            nodes[fb]=fa;
+        else if(rank[fa] < rank[fb])
+            nodes[fa]=fb;
+        else{
+            nodes[fb]=fa;
+            rank[fa]++;
+        }
+    }
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        nodes.resize(1001,-1);
+        rank.resize(1001,-1);
+        
+        for(auto edg:edges){
+            if(find(edg[0])==find(edg[1])) return edg;
+            else Union(edg[0],edg[1]);
+        }
+        return {};
+    }
+};
+
 
