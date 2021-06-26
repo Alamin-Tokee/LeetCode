@@ -114,3 +114,37 @@ public:
         return res;
     }
 };
+
+
+//Binary Index Tree
+
+class Solution {
+public:
+    void update(vector<int>& bit, int id, int num)
+    {
+        for (int i = id+1; i < bit.size(); i += i&(-i))
+            bit[i] += num;
+    }
+    int rangeSum(vector<int>& bit, int id)
+    {
+        int ret = 0;
+        for (int i = id+1; i > 0; i -= i&(-i))
+            ret += bit[i];
+        return ret;
+    }
+    vector<int> countSmaller(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> cnt(n);
+        vector<int> bit(20002);
+        int offset =  10000;
+        for (int i = n-1; i >= 0; --i)
+        {
+            cnt[i] = rangeSum(bit, offset + nums[i]-1);
+            update(bit, offset + nums[i], 1);
+        }
+        return cnt;
+    }
+};
+
+
+
