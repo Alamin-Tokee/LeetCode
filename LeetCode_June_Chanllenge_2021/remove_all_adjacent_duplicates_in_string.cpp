@@ -1,3 +1,21 @@
+//Optimal Approach
+//Time Complexity O(n)
+//Space Complexity O(1)
+
+class Solution {
+public:
+    string removeDuplicates(string& s) {
+        int i = 0;
+        for(int j = 1; j < s.size(); ++j)
+            if (i < 0 || s[i] != s[j]) s[++i] = s[j];
+            else --i;
+        return s.substr(0, i + 1);
+    }
+};
+
+//Stack Approach(Sring)
+//Time Complexity O(n)
+//Space Complexity O(n)
 class Solution {
 public:
     string removeDuplicates(string s) {
@@ -13,6 +31,9 @@ public:
         return res;
    }
 };
+//Stack Approach
+//Time Complexity O(n)
+//Space Complexity O(n)
 
 class Solution {
 public:
@@ -41,7 +62,9 @@ public:
     }
 };
 
-
+//Deque Approach
+//Time Complexity O(n)
+//Space Complexity O(n)
 
 class Solution {
 public:
