@@ -69,3 +69,46 @@ public:
         return j-i;
     }
 };
+
+//Dqeque Solution
+//Time Complexity O(n)
+//Space Complexity O(n)
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {      
+        deque<int>dq;
+        int prev=-1,res=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==0) dq.push_back(i);
+            
+            if(dq.size()>k && !nums[i]){
+                prev=dq.front();
+                dq.pop_front();
+            }
+            res=max(res,i-prev);
+        }
+        return res;
+    }
+};
+        
+//Queue Solution
+//Time Complexity O(n)
+//Space Complexity O(n)
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {           
+        queue<int>q;
+        int prev=-1,res=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==0) q.push(i);
+            
+            if(q.size()>k && !nums[i]){
+                prev=q.front();
+                q.pop();
+            }
+            res=max(res,i-prev);
+        }
+        return res;
+    }
+};
