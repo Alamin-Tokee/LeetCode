@@ -29,3 +29,43 @@ public:
         return ans;
     }
 };
+//Sliding Window Solution
+//Time Complexity O(n)
+//Space Complexity O(1)
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        int zero=0,start=0,res=0;
+        for(int end=0;end<nums.size();end++){
+            
+            if(!nums[end]) zero++;
+            
+            while(zero > k){
+                if(!nums[start]) zero--;
+                start++;
+            }
+            
+            res=max(res,end-start+1);
+        }
+        
+        return res;
+    }
+};
+//Sliding Window Solution
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {       
+        int i=0,j,res=0;
+        for(j=0;j<nums.size();++j){
+            if(!nums[j]) k--;
+            if(k < 0 && !nums[i++]) k++;
+            
+            // res=max(res,j-i+1);
+        }
+        
+        return j-i;
+    }
+};
