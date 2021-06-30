@@ -29,7 +29,7 @@ public:
     }
 };
 
-
+//Time Complexity O(n*n)
 class Solution {
 public:
     bool isPresent(TreeNode* root,TreeNode* a){
@@ -45,3 +45,37 @@ public:
         return root;
     }
 };
+
+
+
+
+
+
+
+
+//Exception
+bool findPath(TreeNode* root,vector<TreeNode*>&path,int k){
+	if(root==NULL) return false;
+
+	path.push_back(root->key);
+
+	if(root->key==k) return true;
+
+	if(((root->left) && findPath(root->left,path,k)) ||(root->right && findPath(root->right, path, k))) return true;
+
+	path.pop_back();
+
+	return false;
+}
+
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+	vector<TreeNode*>path1, path2;
+
+	if(!findPath(root,path1,p) || !findPath(root,path2,q)) return -1;
+
+	int i;
+	for(int i=0;i<path1.size() && i < path2.size(); i++){
+		if(path[i]!=path2[i]) break;
+	}
+	return path1[i-1];
+}
