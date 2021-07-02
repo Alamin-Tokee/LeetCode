@@ -25,3 +25,25 @@ public:
         return diff;
     }
 };
+
+//Using Multiset
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        vector<int>v(k);
+        multimap<int,int>mp;
+        for(int i=0;i<arr.size();i++)
+        {
+            mp.insert({abs(x-arr[i]),arr[i]});
+        }
+        multimap<int,int>::iterator it;
+        int i=0;
+        for( it=mp.begin();i<k and it!=mp.end();++it)
+        {
+            v[i]=(it->second);
+            i++;
+        }
+        sort(v.begin(),v.end());
+        return v;
+    }
+};
