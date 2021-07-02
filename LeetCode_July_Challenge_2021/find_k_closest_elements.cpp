@@ -47,3 +47,18 @@ public:
         return v;
     }
 };
+
+
+//Using Lamda sort
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& A, int k, int x) {
+        sort(arr.begin(),arr.end(),[&x](int a,int b){
+            return (abs(a-x) < abs(b-x) || (abs(a-x) == abs(b-x) && a<b));
+        });
+        vector<int> ans = {arr.begin(),arr.begin()+k};
+        sort(ans.begin(),ans.end());
+        
+        return ans;
+    }
+};
