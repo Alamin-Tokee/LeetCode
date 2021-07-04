@@ -112,3 +112,76 @@ public:
         return c%mod;
     }
 };
+
+
+
+//Matrix exponentiaton
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+public:
+    const long long M= 1e9+7;
+    vector<vector<long long>> matrixExponen(vector<vector<long long>>& A,vector<vector<long long>>& B){
+        long long m=A.size(), n=A[0].size(),p=B[0].size();
+        vector<vector<long long>> R(m, vector<long long> (p));
+        for(long long i=0; i<m; i++){
+            for(long long j=0;j<n;j++){
+                for(long long k=0;k<p;k++){
+                    R[i][k]+=A[i][j]*B[j][k];
+                    R[i][k] %= M;
+                }
+            }
+        }
+        
+        return R;
+    }
+    int countVowelPermutation(int n) {
+        vector<vector<long long>> A({{0,1,1,0,1},
+                                    {1,0,1,0,0},
+                                    {0,1,0,1,0},
+                                    {0,0,1,0,0},
+                                    {0,0,1,1,0}
+                                    });
+        
+        vector<vector<long long>> R({{1,0,0,0,0},
+                                    {0,1,0,0,0},
+                                    {0,0,1,0,0},
+                                    {0,0,0,1,0},
+                                    {0,0,0,0,1}
+                                    });
+    
+        n--;
+        while(n){
+            if(n & 1){
+                R=matrixExponen(R,A);
+            }
+            A=matrixExponen(A,A);
+            n >>= 1;
+        }
+
+        //Using Recusion Tos Solve the matrix exponentiation
+        // vector<vector<int>>power(vector<vector<int>>& a,int k){
+        // if(k==1)return a;
+        // vector<vector<int>>res=power(a,k/2);
+        // if(k&1)
+        // {
+        //         return multiply(multiply(a,res),res);
+        // }
+        // else
+        // {
+        //         return multiply(res,res);
+        // }
+        // }
+        
+        
+        
+        long long res=0;
+        for(int i=0;i<5;i++){
+            for(int j=0;j<5;j++){
+                res+=R[i][j];
+                res%=M;
+            }
+        }
+        return res;
+    }
+};
