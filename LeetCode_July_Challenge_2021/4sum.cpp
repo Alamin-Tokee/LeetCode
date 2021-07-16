@@ -74,3 +74,46 @@ public:
         return ans;
     }
 };
+
+
+//Using hash and set
+//Time complexity O(n^3)
+//Space compleixty O(n)
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        set<tuple<int,int,int,int>> vec;
+        int d,q;
+        for(int i=0;i<n-3;i++){
+            for(int j=i+1;j<n-2;j++){
+                d=j+1;
+                q=n-1;
+                while(d < q){
+                    if((nums[i]+nums[j]+nums[d]+nums[q])==target){
+                        vec.insert(make_tuple(nums[i],nums[j],nums[d],nums[q]));
+                        d++;
+                        q--;
+                    }else if((nums[i]+nums[j]+nums[d]+nums[q]) < target){
+                        d++;
+                    }else{
+                        q--;
+                    }
+                }
+            }
+        }
+        int sz=vec.size();
+        vector<vector<int>> v(sz,vector<int>(4));
+        int i=0;
+        for(auto it:vec){
+           v[i][0]=get<0>(it);
+           v[i][1]=get<1>(it); 
+           v[i][2]=get<2>(it);
+           v[i][3]=get<3>(it);
+           i++; 
+        }
+        
+        return v;
+    }
+};
