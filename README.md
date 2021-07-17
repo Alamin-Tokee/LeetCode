@@ -20,4 +20,4 @@ Leetcode program and useful description. All will update here regarding leetcode
 17. Problem 92: Reverse Linked List II
 18. Problem 566: Reshape the Matrix
 19. Problem 205: Isomorphic String
-
+20. Problem 927: Three Equal Parts(Hard)
