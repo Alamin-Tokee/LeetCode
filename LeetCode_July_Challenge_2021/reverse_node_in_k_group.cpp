@@ -25,3 +25,33 @@ public:
         return new_head;
     }
 };
+
+//Using Vector
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        vector<int>a;
+        ListNode *temp=head;
+        while(temp){
+            a.push_back(temp->val);
+            temp=temp->next;
+        }
+        ListNode *c=NULL;
+        ListNode *b=NULL;
+        int p=a.size() / k;
+        for(int i=0;i<p;i++){
+            reverse(a.begin()+k*i,a.begin()+k*i+k);
+        }
+        for(int i=0;i<a.size();i++){
+            if(b==NULL){
+                b=new ListNode(a[i]);
+                c=b;
+            }else{
+                b->next=new ListNode(a[i]);
+                b=b->next;
+            }
+        }
+        
+        return c;
+    }
+};
