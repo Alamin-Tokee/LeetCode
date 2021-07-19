@@ -28,3 +28,24 @@ public:
         return l ? l : r;
 	}
 };
+
+
+//Time Complexity O(2^h)
+//Space Complexity O(h)
+class Solution {
+public:
+    bool lca(TreeNode* root,TreeNode* a){
+        if(!root) return false;
+        if(root->val == a->val) return true;
+        
+        return lca(root->left,a) || lca(root->right,a);
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        
+        if(!root) return NULL;
+        if(lca(root->left,p) && lca(root->left,q)) return lowestCommonAncestor(root->left,p,q);
+        if(lca(root->right,p) && lca(root->right,q)) return lowestCommonAncestor(root->right,p,q);
+        
+        return root;
+    }
+};
