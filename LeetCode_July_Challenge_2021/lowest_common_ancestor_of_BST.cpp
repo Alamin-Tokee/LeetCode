@@ -49,3 +49,28 @@ public:
         return root;
     }
 };
+
+//Time Complexity O(h)
+//Space Complexity O(1)
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        int pVal=p->val;
+        int qVal=q->val;
+        TreeNode* node=root;
+        
+        while(node!=NULL){
+            
+            if(node->val < pVal && node->val < qVal){
+                node=node->right;
+            }
+            else if(node->val > pVal && node->val > qVal){
+                node=node->left;
+            }
+            else{
+                return node;
+            }
+        }
+        return NULL;
+    }
+};
