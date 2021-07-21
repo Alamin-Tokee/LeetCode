@@ -23,6 +23,41 @@ public:
         }
         return shuffled;
     }
+
+
+    // vector<int> shuffle() {
+    //     int n=original.size();
+    //     for (int i=0;i<n;++i)
+    //     {
+    //         int randomIndex=(rand()%(n-i))+i;
+    //         swap(&original[i],&original[randomIndex]);
+    //     }
+        
+    //     return original;
+    // }
 private:
     vector<int>original;
+};
+
+
+//Usign Next Permutation
+
+
+class Solution {
+public:
+    vector<int> ori, temp, track;
+    Solution(vector<int>& nums) {
+        ori = temp = track = nums;
+    }
+    vector<int> reset() {
+        return ori;
+    }
+    vector<int> shuffle() {
+        do{
+            if(temp != track && temp != ori)
+                break;   
+        }while(next_permutation(temp.begin(), temp.end()));
+        track = temp;
+        return temp;
+    }
 };
