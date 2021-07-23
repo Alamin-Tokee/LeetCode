@@ -1,5 +1,5 @@
 //Brute Force Approach
-//Time Complexity O(n)
+//Time Complexity O(n^2)
 //Space Complexity O(1)
 
 class Solution {
@@ -27,3 +27,21 @@ public:
         return root;
     }
 };
+
+//Optimal Approach
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+public:
+    bool hasOne(TreeNode* root){
+        if(!root) return NULL;
+        bool left=hasOne(root->left), right=hasOne(root->right);
+        if(!left)  root->left=NULL;
+        if(!right) root->right=NULL;
+        
+        return root->val == 1 || left || right;
+    }
+    TreeNode* pruneTree(TreeNode* root){
+        return (hasOne(root)) ? root : NULL;
+    }
+};      
