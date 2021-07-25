@@ -1,6 +1,10 @@
 //Brute Force Solution
 //Time Complexity O(n)
 //Space Complexity O(1)
+
+//1 << 0 = `0000 0001`
+// 1 << 1 = `0000 0010`
+// 1 << 2 = `0000 0100`
 class Solution {
 public:
     int check(int n){
