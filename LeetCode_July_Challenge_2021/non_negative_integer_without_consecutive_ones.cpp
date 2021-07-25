@@ -1,3 +1,26 @@
+//Brute Force Solution
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+public:
+    int check(int n){
+        int i = 31;
+        while(i > 0){
+            if((n&(1<<i))!=0 && (n&(1<<(i-1)))!=0) return false;
+            i--;
+        }
+        return true;
+    }
+    int findIntegers(int n) {
+        int count = 0;
+        for(int i=0;i<n;i++){
+            if(check(i))
+                count++;
+        }
+
+        return count;
+    }
+};
 //Recursive Solution
 //Time Complexity O(n)
 //Space Complexity O(1)
