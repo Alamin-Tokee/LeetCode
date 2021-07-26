@@ -31,6 +31,7 @@ public:
         return new TreeNode(nums[mid],rec(nums,l,mid),rec(nums,mid+1,r));
     }
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return rec(nums,0,nums.size());
+        
+        return rec(nums,0,nums.size()); 
     }
 };
