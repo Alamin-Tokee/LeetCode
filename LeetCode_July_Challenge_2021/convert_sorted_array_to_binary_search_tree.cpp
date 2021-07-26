@@ -1,3 +1,7 @@
+
+//Aproach 1
+//TC O(n)
+//SC O(n)
 class Solution {
 public:
     TreeNode* arrayToBST(vector<int>& nums, int l, int r){
@@ -16,5 +20,17 @@ public:
         
         return arrayToBST(nums, 0, nums.size()-1);
         
+    }
+};
+
+class Solution {
+public:
+    TreeNode* rec(vector<int>& nums,int l,int r){
+        if(l>=r) return NULL;
+        int mid = (l+r)/2;
+        return new TreeNode(nums[mid],rec(nums,l,mid),rec(nums,mid+1,r));
+    }
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return rec(nums,0,nums.size());
     }
 };
