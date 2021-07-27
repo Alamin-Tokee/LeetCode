@@ -97,4 +97,38 @@ public:
 };    
 
 
+//Binary Search STL
+// TIME COMPLEXITY:- O(N^2LOG(N))
+// SPACE COMPLEXITY:- O(N)
+
+
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        pair<int,int> ans = {INT_MAX,INT_MAX};
+        multiset<int> s(nums.begin(),nums.end());
+        for(int i=0;i<nums.size();i++){
+            for(int j=i+1;j<nums.size();j++){
+                s.erase(s.find(nums[i]));
+                s.erase(s.find(nums[j]));
+                int required = target - (nums[i]+nums[j]);
+                auto itr = s.upper_bound(required);
+                if(itr!=s.end()){
+                    if(abs(required-(*itr))<ans.first){
+                        ans.first = abs(required-(*itr));
+                        ans.second = nums[i] + nums[j] + (*itr);
+                    }
+                }
+                itr--;
+                if(abs(required-(*itr))<ans.first){
+                    ans.first = abs(required-(*itr));
+                    ans.second = nums[i] + nums[j] + (*itr);
+                }
+                s.insert(nums[i]);
+                s.insert(nums[j]);
+            }
+        }
+        return ans.second;
+    }
+};
 
