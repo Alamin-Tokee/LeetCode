@@ -24,3 +24,4 @@ Leetcode program and useful description. All will update here regarding leetcode
 21. Problem 384: Shuffle an Array
 22. Problem 126: Word Ladder II
 22. Problem 600: Non-negative Integers without Consecutive Ones
+23. Problem 932: Beautiful Array
