@@ -63,3 +63,40 @@ public:
         return dp;
     }
 };
+
+
+//DFS Solution(TLE)
+//Time Complexity O(r*c)
+//Space Complexity O(1)
+class Solution {
+public:
+    int dfs(vector<vector<int>>& matrix, int r, int c)
+    {
+        if(r<0 || c<0 || r >=matrix.size() || c >=matrix[0].size() || matrix[r][c]==-1)
+            return 10000;
+        if(matrix[r][c]==0 || matrix[r][c]==1)
+            return matrix[r][c];
+        int t = matrix[r][c];
+        matrix[r][c] = -1;
+        int l = 1+dfs(matrix, r, c-1);
+        int ri= 1+dfs(matrix, r, c+1);
+        int d = 1+dfs(matrix, r-1, c);
+        int u = 1+dfs(matrix, r+1, c);
+        matrix[r][c] = min({t, l, ri, d, u});
+        return matrix[r][c];
+    }
+    
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) {
+        for(int i = 0; i < matrix.size(); i++)
+            for(int j = 0; j < matrix[0].size(); j++)
+                if(matrix[i][j])
+                    matrix[i][j] = 10000;
+        
+        for(int i = 0; i < matrix.size(); i++)
+            for(int j = 0; j < matrix[0].size(); j++)
+                if(matrix[i][j])
+                    dfs(matrix, i, j);
+        return matrix;
+        
+    }
+};
