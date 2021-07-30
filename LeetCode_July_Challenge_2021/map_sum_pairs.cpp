@@ -36,3 +36,34 @@ public:
 //         if( res.first == prefix.end() ){
 //             total += it.second;
 //         }
+
+
+
+//HashMap Solution
+//Time Complexity O(n)
+//Space Complexity O(n)
+class MapSum {
+public:
+    /** Initialize your data structure here. */
+    unordered_map<string,int>mp;
+    unordered_map<string,int>p;
+    MapSum() {
+        
+    }
+    
+    void insert(string key, int val) {
+        int v = val - mp[key];
+        cout << v <<endl;
+        mp[key] = val;
+        string pre;
+        for(char c : key){
+            pre+=c;
+            p[pre]+=v;
+        }
+    }
+    
+    int sum(string prefix) {
+        return p[prefix];
+    }
+};
+
