@@ -67,3 +67,52 @@ public:
     }
 };
 
+
+
+//Trie Solution
+//Time Complexity O(n)
+//Space Complexity O(n)
+class MapSum {
+public:
+    /** Initialize your data structure here. */
+    struct TrieNode{
+        TrieNode* children[26];
+        int sum = 0;
+    };
+    TrieNode* root;
+    TrieNode* curr;
+    unordered_map<string,int>mp;
+    
+    MapSum() {
+        root = new TrieNode();
+    }
+    
+    void insert(string key, int val) {
+        curr = root;
+        int temp = mp.count(key) ? mp[key] : 0;
+        
+        mp[key]=val;
+        
+        val-=temp;
+        
+        for(char& ch:key){
+            if(!curr->children[ch - 'a']){
+                curr->children[ch - 'a'] = new TrieNode();
+            }
+            curr = curr->children[ch - 'a'];
+            curr->sum+=val;
+        }
+    }
+    
+    int sum(string prefix) {
+        curr = root;
+        for(char& ch:prefix){
+            if(!curr->children[ch - 'a']){
+                return false;
+            }
+            curr = curr->children[ch - 'a'];
+        }
+        
+        return curr->sum;
+    }
+};
