@@ -21,7 +21,7 @@ public:
 
 
 //Two Pointer Solution
-//Time Complexity O(n)
+//Time Complexity O(n*logn)
 //Space Complexity O(n)
 class Solution {
 public:
