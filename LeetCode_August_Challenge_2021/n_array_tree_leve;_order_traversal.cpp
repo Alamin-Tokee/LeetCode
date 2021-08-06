@@ -51,3 +51,27 @@ public:
         return result;
     }
 };
+
+//DFS Solution
+//Time Complexity O(n)
+//Space Complexity O(H)
+class Solution {
+public:
+    void dfs(Node* root,int level){
+        if(!root) return;
+        
+        if(level == res.size()) res.push_back({});//res.emplace_back();
+        res[level].push_back(root->val);
+        for(Node* curr:root->children)
+            dfs(curr,level+1);
+    }
+    vector<vector<int>> levelOrder(Node* root) {
+        if(!root) return {};
+        
+        dfs(root,0);
+        
+        return res;
+    }
+private:
+    vector<vector<int>>res;
+};
