@@ -30,3 +30,44 @@ public:
         return solve(s,0,n-1);
     }
 };
+
+//DP+Memoization(Accepted)
+class Solution {
+private:
+    vector<vector<int>> memo_one, memo_two;
+    
+    bool isPalindromic(string &s, int i, int j){
+        if(i >= j) return true;
+        
+        if(memo_two.at(i).at(j) != -1) 
+            return memo_two.at(i).at(j); 
+        
+        if(s.at(i) == s.at(j)) 
+            return memo_two.at(i).at(j) = isPalindromic(s, i + 1, j - 1);
+        
+        return memo_two.at(i).at(j) = false;
+    }
+    
+    int minimumCuts(string &s, int i, int j){
+        if(i >= j) return 0;
+        
+        if(memo_one.at(i).at(j) != -1) return memo_one.at(i).at(j);
+        
+        if(isPalindromic(s, i, j)) return 0;
+        
+        int answer = INT_MAX;
+        for(int index = i; index < j; index++)
+            if(isPalindromic(s, i, index)) 
+                answer = min(answer, 1 + minimumCuts(s, index + 1, j));
+        
+        return memo_one.at(i).at(j) = answer;
+    }
+    
+public:
+    int minCut(string s) {
+        memo_one = vector<vector<int>>(s.length(), vector<int>(s.length(), -1));
+        memo_two = vector<vector<int>>(s.length(), vector<int>(s.length(), -1));
+      
+        return minimumCuts(s, 0, s.length() - 1);
+    }
+};
