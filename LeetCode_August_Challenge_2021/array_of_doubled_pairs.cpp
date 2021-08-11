@@ -59,7 +59,74 @@ public:
     }
 };
 
+//Time Complexity O(NlogN)
+//Space Complexity O(N)
+class Solution {
+public:
+    bool canReorderDoubled(vector<int>& arr) {
+        unordered_map<int,int> mp;
+        sort(arr.begin(),arr.end());
+        int index = lower_bound(arr.begin(),arr.end(),0) - arr.begin();
+        for(int i=0;i<index;i++){
+            if(mp.count(arr[i]*2)){
+                mp[arr[i]*2]--;
+                if(mp[arr[i]*2]==0)
+                    mp.erase(arr[i]*2);
+            }
+            else
+                mp[arr[i]]++;
+        }
+        for(int i=arr.size()-1;i>=index;i--){
+            if(mp.count(arr[i]*2)){
+                mp[arr[i]*2]--;
+                if(mp[arr[i]*2]==0)
+                    mp.erase(arr[i]*2);
+            }
+            else
+                mp[arr[i]]++;
+        }
+        return mp.empty();
+    }
+};
 
+
+class Solution {
+public:
+    bool canReorderDoubled(vector<int>& arr) {
+        sort(arr.begin(), arr.end());
+        unordered_map<int, int> cnt;
+        for (int x : arr) cnt[x]++;
+        
+        for (int x : arr) {
+            if (cnt[x] == 0) continue;
+            if (x < 0 && x % 2 != 0) return false; // For example: arr=[-5, -2, 1, 2], x = -5, there is no x/2 pair to match
+            int y = x > 0 ? x*2 : x/2;
+            if (cnt[y] == 0) return false; // Don't have the corresponding `y` to match with `x` -> Return IMPOSSIBLE!
+            cnt[x]--;
+            cnt[y]--;
+        }
+        return true;
+    }
+};
+
+
+ bool canReorderDoubled(vector<int>& arr) {
+       
+        sort(begin(arr), end(arr));
+        multiset<int> s;
+        for(int i = 0; i<arr.size();i++){
+         auto it = s.find(2 * arr[i]);
+            if(it == s.end() && arr[i]%2 == 0)
+                it = s.find(arr[i] / 2);
+            if(it == s.end())
+                s.insert(arr[i]);
+            else
+                s.erase(it);
+        }
+       
+        
+        return s.empty() == true;
+    }
 
 
 
