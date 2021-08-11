@@ -23,3 +23,43 @@ public:
 };
 
 
+//Time Complexity O(NlogN)
+//Space Complexity O(N)
+class Solution {
+public:
+    bool canReorderDoubled(vector<int>& arr) {
+        
+        // track freq count of numbers in the array
+        unordered_map<int,int>track;
+        
+        int n = arr.size();
+        int c = 0;
+        
+        // sort array based on their abs value
+        sort(arr.begin(),arr.end(),[](int a, int b){return abs(a) < abs(b);});
+        
+        // store freq count of numbers in the Map
+        for(int i=0;i<arr.size();i++)track[arr[i]]++;
+        
+        // loop through array and check 2a freq count for a if freq count a > 0 
+        for(int i=0;i<arr.size();i++)
+        {       
+            // ignore 0 freq number
+            if (track[arr[i]]==0)  continue;
+            
+            // check even count for zero number
+            if(arr[i]==0 && track[arr[i]]>=2)c++,track[arr[i]]-=2;
+            
+            // check 2a freq count for number a
+            if (arr[i]!=0 && track[arr[i]*2]>0)c++, track[arr[i]*2]--,track[arr[i]]--;
+        }
+        
+        // total pair == length/2 for valid case
+        return c == n/2;
+    }
+};
+
+
+
+
+
