@@ -58,3 +58,39 @@ public:
         return rangeUtil(left,right,0,n-1,0);
     }
 };
+
+
+// #Binary Index Tree #Fenwick Tree
+// Time Complexity: Sum: O(logn), Update: O(logn)
+// Space Complexity: O(n) for the segment tree
+
+class NumArray {
+public:
+    vector<int>sums;
+    NumArray(vector<int>& nums) {
+        sums.resize(nums.size()+1);
+
+        for(int i = 0; i < nums.size(); ++i){
+             update(i+1, nums[i]);
+        }
+    }
+    
+    void update(int index, int num){
+        for(int i = index; i < sums.size(); i+=(i&-i)){
+            sums[i] = sums[i]+num;
+        }
+    }
+    
+    int query(int index){
+       int ans = 0;
+        if(index <= 0)
+           return ans;
+        for(int i = index; i > 0; i-=(i&-i))
+           ans += sums[i];
+        return ans;
+    }
+    
+    int sumRange(int left, int right) {
+         return query(right+1)-query(left);
+    }
+};
