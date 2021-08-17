@@ -46,5 +46,19 @@ public:
 
 //TC O(n)
 //SC O(n) If we consider recursion
-
-
+class Solution {
+public:
+    int ans=0;
+    void dfs(TreeNode* root,int v){
+        if(!root) return;
+        if(root->val >= v) ans++;
+        v=max(root->val,v);
+        dfs(root->left,v);
+        dfs(root->right,v);
+    }
+    int goodNodes(TreeNode* root) {
+        if(!root) return 0;
+        dfs(root,INT_MIN);
+        return ans;
+    }
+};
