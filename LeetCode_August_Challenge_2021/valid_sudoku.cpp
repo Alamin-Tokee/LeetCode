@@ -86,3 +86,60 @@ public:
         return true;
     }
 };
+
+//Time Complexity O(9*9)
+//Space Complexity O(9*9)
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        vector<unordered_set<int>> r(9, unordered_set<int>());
+        vector<unordered_set<int>> c(9, unordered_set<int>());
+        vector<unordered_set<int>> box(9, unordered_set<int>());
+        
+        for(int i=0;i<9;++i){
+            for(int j=0;j<9;++j){
+                if(board[i][j] == '.') continue;
+                
+                int num=board[i][j]-'0';
+                if(r[i].count(num)) return false;
+                if(c[j].count(num)) return false;
+                
+                int v = (i/3)*3+j/3;
+                if(box[v].count(num)) return false;
+                
+                r[i].insert(num);
+                c[j].insert(num);
+                box[v].insert(num);
+            }
+        }
+        
+        return true;
+    }
+};
+
+//Time Complexity O(9*9)
+//Space Complexity O(9)
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        vector<int>r(9,0);
+        vector<int>c(9,0);
+        vector<int>box(9,0);
+        
+        for(int i=0;i<9;++i){
+            for(int j=0;j<9;++j){
+                if(board[i][j] != '.'){
+                    int bit = 1 << (board[i][j]-'0');
+                    int index= (i/3)*3+j/3;
+                    
+                    if(r[i]&bit || c[j]&bit || box[index]&bit) return false;
+                    r[i] |= bit;
+                    c[j] |= bit;
+                    box[index] |= bit;
+                }
+            }
+        }
+        
+        return true;
+    }
+};
