@@ -69,3 +69,31 @@ public:
         bool success=solveCell(board,0,0);
     }
 };
+
+
+
+class Solution {
+public:
+    int blk[9], row[9], col[9];
+    bool flip (int r, int c, char num) {
+        int b = 1 << (num - '1'), bi = r / 3 * 3 + c / 3;
+        return (row[r] ^= b) & (col[c] ^= b) & (blk[bi] ^= b) & b;
+    }
+  
+    bool dfs (int r, int c, vector<vector<char>>& b) {
+        if (max(r, c) == 9) return r == 9 || dfs (r + 1, 0, b);
+        if (b[r][c] != '.') return dfs(r, c + 1, b);
+        
+        for (b[r][c] = '1'; b[r][c] <= '9'; b[r][c]++) {
+            if (flip(r, c, b[r][c]) && dfs(r, c + 1, b)) return true;
+            flip(r, c, b[r][c]);
+        }
+        return (b[r][c] = '.') && false;
+    }
+    void solveSudoku(vector<vector<char>>& board) {
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                board[i][j] != '.' && flip(i, j, board[i][j]);
+        dfs(0, 0, board);
+    }
+};
