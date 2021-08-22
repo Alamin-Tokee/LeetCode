@@ -65,3 +65,54 @@ public:
         return ans % mod;        
     }
 };
+
+//Line Sweep
+//Time Complexity O(n^2logN)
+//Space Complexity O(n)
+
+
+#define REP(i, n) for(int i = 0; i < n; i++)
+#define REPP(i, n) for(int i = 1; i <= n; i++)
+#define ALL(obj) (obj).begin(), (obj).end()
+class Solution {
+public:
+    int rectangleArea(vector<vector<int>>& rectangles) {
+        typedef tuple<int,int,int,bool>T;
+        vector<T>vec;
+        
+        for(vector<int>& rectangle:rectangles){
+            int x1=rectangle[0],y1=rectangle[1],x2=rectangle[2],y2=rectangle[3];
+            vec.push_back({y1,x1,x2,false}); //Start
+            vec.push_back({y2,x1,x2,true}); //End
+        }
+        sort(ALL(vec));
+        long long ans=0;
+        multiset<pair<int,int>>intervals;
+        
+        long long prevy;
+        for(T& t:vec){
+            long long y=get<0>(t);
+            int x1=get<1>(t), x2=get<2>(t);
+            bool flag=get<3>(t);
+            
+            long long l=-1, r=-1;
+            for(const pair<int,int>& interval:intervals){
+                if(r < interval.first) {
+                    ans+=(y-prevy) * (r-l);
+                    l=interval.first;
+                    r=interval.second;
+                }
+                else{
+                    r=max(r,(long long)interval.second);
+                }
+            }
+            ans+=(y-prevy)*(r-l);
+            if(!flag) intervals.insert({x1,x2});
+            else intervals.erase(intervals.find({x1,x2}));
+            prevy=y;
+        }
+        const long long mod=1e9+7;
+        
+        return ans%mod;
+    }
+};
