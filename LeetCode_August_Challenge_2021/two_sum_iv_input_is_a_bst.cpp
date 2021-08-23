@@ -42,6 +42,27 @@ public:
     }
 };
 
+//Third Apprach (BFS)
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if(!root) return true;
+        unordered_map<int,int>mp;
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty()){
+            TreeNode* curr=q.front();
+            q.pop();
+            if(mp.count(k-curr->val) > 0) return true;
+            mp[curr->val]++;
+            if(curr->left) q.push(curr->left);
+            
+            if(curr->right) q.push(curr->right);
+        }
+        
+        return false;
+    }
+};
 
 
 
