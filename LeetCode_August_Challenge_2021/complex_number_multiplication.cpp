@@ -11,7 +11,12 @@ public:
         return ans.str();
     }
 };
-
+string complexNumberMultiply(string a, string b) {
+    int a1 = 0, b1 = 0, a2 = 0, b2 = 0;
+    sscanf(a.c_str(), "%d+%di",&a1,&b1);
+    sscanf(b.c_str(), "%d+%di",&a2,&b2);
+    return to_string(a1*a2-b1*b2)+"+"+to_string(a1*b2+a2*b1)+"i";
+}
 
 //Intution Procee Without Library
 class Solution {
@@ -60,5 +65,57 @@ public:
         ans += 'i';
         
         return ans;
+    }
+};
+
+string complexNumberMultiply(string num1, string num2) {
+    int a,b,c,d;
+    //convert num1 to a+ib
+    int it1=num1.find('+');
+    a=stoi(num1.substr(0,it1));
+    b=stoi(num1.substr(it1+1,num1.size()-2)); //num1.size()-2 to skip 'i' character at last index
+    //convert num2 to c+ib
+    int it2=num2.find('+');
+    c=stoi(num2.substr(0,it2));
+    d=stoi(num2.substr(it2+1,num2.size()-2));
+    
+    return to_string(a*c-b*d)+'+'+to_string(a*d+c*b)+'i';
+}
+
+//3rd Approach
+class Solution {
+public:
+    complex<int> parse(string num) {
+        int i = num.find('+');
+        int real = stoi(num.substr(0, i));
+        int imaginary = stoi(num.substr(i+1, num.size()-i-2));
+        complex<int> res(real, imaginary);
+        return res;
+    }
+    
+    string complexNumberMultiply(string num1, string num2) {
+        complex<int> a = parse(num1), b = parse(num2);
+        complex<int> res = a * b;        
+        
+        return to_string(real(res)) + "+" + to_string(imag(res)) + "i";
+    }
+};
+
+class Solution {
+public:
+    pair<int, int> parse(string num) {
+        int i = num.find('+');
+        double real = stoi(num.substr(0, i));
+        double imaginary = stoi(num.substr(i+1, num.size()-i-2));
+        pair<int, int> res(real, imaginary);
+        return res;
+    }
+    
+    string complexNumberMultiply(string num1, string num2) {
+        pair<int, int> a = parse(num1), b = parse(num2);
+        int real_a = a.first, imag_a = a.second;
+        int real_b = b.first, imag_b = b.second;
+        
+        return to_string(real_a * real_b - imag_a * imag_b) + '+' + to_string(real_a * imag_b  + real_b * imag_a)+'i' ;
     }
 };
