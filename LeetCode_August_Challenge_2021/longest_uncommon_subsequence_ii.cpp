@@ -1,3 +1,5 @@
+//Time Complexity O(n*n2)
+//Space Complexity O(1)
 class Solution {
 public:
     bool isSubString(string a,string b){
@@ -27,5 +29,29 @@ public:
             if(flag) maxlen=max(maxlen,currlen);
         }
         return maxlen;
+    }
+};
+
+
+
+class Solution {
+public:
+    int findLUSlength(vector<string>& strs) {
+        unordered_map<string,int> mp;
+        for(auto& s:strs){
+            for(int i=0;i < (1<<s.size()); i++){
+                string t;
+                for(int j=0;j<s.size();j++){
+                    if((i>>j) & 1) t+=s[j];
+                }
+                mp[t]++;
+            }
+        }
+        int ans = -1;
+        for(auto& a: mp){
+            if(a.second == 1)
+                ans=max(ans, (int)a.first.size());
+        }
+        return ans;
     }
 };
