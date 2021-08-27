@@ -55,3 +55,34 @@ public:
         return node==0;
     }
 };
+
+
+//Fourth Approach
+class Solution {
+public:
+    vector<string>tokenizeString(string preorder){
+        vector<string>res;
+        stringstream ss(preorder);
+        string word;
+        while(ss >> word){
+            res.push_back(word);
+        }
+        return res;
+    }
+    bool isValidPreOrder(vector<string> &pre,int &n){
+        if(n>=pre.size()) return false;
+        
+        if(pre[n]=="#") return true;
+        
+        bool left = isValidPreOrder(pre,++n);
+        bool right = isValidPreOrder(pre,++n);
+        
+        return left and right;
+    }
+    bool isValidSerialization(string preorder) {
+        replace_if(preorder.begin(),preorder.end(),[] (char &c){return c==',';},' ');
+        vector<string> pre=tokenizeString(preorder);
+        int n=0;
+        return isValidPreOrder(pre,n) and n==pre.size()-1;
+    }
+};
