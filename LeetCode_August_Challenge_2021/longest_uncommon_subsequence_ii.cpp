@@ -55,3 +55,37 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+public:
+    
+    bool isSubseq(string a, string b){
+        int j=0;
+        for(int i=0;i<b.size();i++){
+            if(b[i]==a[j]){
+                j++;
+            }
+            if(j==a.size())
+                break;
+        }
+        return j==a.size();
+    }
+    int findLUSlength(vector<string>& strs) {
+        sort(strs.begin(), strs.end(), [](string& a, string& b){
+            return a.length()>b.length();
+        });
+        for(int i=0;i<strs.size();i++){
+            bool istrue=false;
+            for(int j=0; j<strs.size() && strs[j].length()>=strs[i].length();j++){
+                if(i!=j && isSubseq(strs[i], strs[j])){
+                    istrue=true;
+                    break;
+                }
+            }
+            if(!istrue)
+                return strs[i].length();
+        }
+          return -1;
+    }
+};
