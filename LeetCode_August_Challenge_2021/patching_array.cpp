@@ -49,3 +49,31 @@ public:
         return count;
     }
 };
+
+
+class Solution {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        int index = 0;
+        int count = 0;
+        long long Value_need = 0;
+      
+        while (Value_need < n) {
+            
+            if(index >= nums.size()){
+                Value_need += Value_need + 1;
+                count++;
+            }
+            else if (index < nums.size() && Value_need + 1 >= nums[index]) {
+                Value_need += nums[index];
+                index++;
+            }
+            else {
+                Value_need += Value_need + 1;
+                count++;
+            }
+        }
+
+        return count;
+    }
+};
