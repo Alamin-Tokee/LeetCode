@@ -24,3 +24,18 @@ public:
         return c;
     }
 };
+
+//Better Approach 
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+public:
+    int maxCount(int m, int n, vector<vector<int>>& ops) {
+       int xmin=m, ymin=n;
+        for(const auto x : ops){
+            xmin=min(xmin,x[0]);
+            ymin=min(ymin,x[1]);
+        }
+        return xmin*ymin;
+    }
+};
