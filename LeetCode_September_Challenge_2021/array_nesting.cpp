@@ -23,3 +23,24 @@ public:
         return ans;
     }
 };
+
+//Time Complexity O(n)
+//Spacee Complexity O(1)
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+        int n=nums.size();
+        vector<bool> visited(n,false);
+        int ans = 0;
+        for(int x:nums){
+            int cnt = 0;
+            while(!visited[x]){
+                cnt+=1;
+                visited[x] = true;
+                x = nums[x];
+            }
+            ans = max(ans,cnt);
+        }
+        return ans;
+    }
+};
