@@ -44,5 +44,32 @@ public:
             }
         }
         return slowKey+'a';
+
+    }
+};
+
+
+//Time Complexity O(n)
+//Space Complexity O(1) (Constant Space)
+class Solution {
+public:
+    char slowestKey(vector<int>& releaseTimes, string keysPressed) {
+        int ans=INT_MIN;
+        char st;
+        for(int i=0;i<releaseTimes.size();i++){
+            if(i==0){
+                ans=max(ans,releaseTimes[i]);
+                st=keysPressed[i];
+            }else{
+                if(releaseTimes[i]-releaseTimes[i-1] >=ans){
+                    if(releaseTimes[i]-releaseTimes[i-1]==ans && keysPressed[i] < st){
+                        continue;
+                    }
+                    ans=releaseTimes[i]-releaseTimes[i-1];
+                    st=keysPressed[i];
+                }
+            }
+        }
+        return st;
     }
 };
