@@ -33,3 +33,46 @@ public:
         return newHead;
     }
 };
+
+
+
+//Recursive Several Approach
+class Solution {
+public:
+    ListNode* solve(ListNode* current, ListNode* back)
+    {
+        if(!current) 
+            return back;
+        ListNode* newnode = solve(current->next, current);
+        current->next = back;
+        return newnode;
+    }
+    
+    ListNode* reverseList(ListNode* head) 
+    {
+        return solve(head, nullptr);
+    }
+};
+
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        function<ListNode*(ListNode*, ListNode*)> f = [&] (auto l, auto p) {
+            if (!l) return p;
+            auto ans = f(l->next, l);
+            l->next = p;
+            return ans;
+        };
+        return f(head, nullptr);
+    }
+};
+
+
+
+//         function<ListNode*(ListNode*, ListNode*)> f = [&] (auto l, auto p) {
+//             if (!l) return p;
+//             auto t = l->next;
+//             l->next = p;
+//             return f(t, l);
+//         };
