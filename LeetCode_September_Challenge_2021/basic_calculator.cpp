@@ -35,3 +35,44 @@ public:
         return result;
     }
 };
+
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+public:
+    int calculate(string s) {
+        int i = 0;
+        return f(s, i);
+    }
+int f(string s, int &i)
+{
+    long long val = 0, res = 0;
+    int sign = 1;
+
+    while (i < s.size() && s[i] != ')')
+    {
+        if (isspace(s[i]))
+            i++;
+        else if (isdigit(s[i]))
+        {
+            val = 0;
+            while (i < s.size() && isdigit(s[i]))
+                val = val * 10 + s[i++] - '0';
+
+            res += val * sign;
+        }
+        else if (s[i] == '+' || s[i] == '-')
+            sign = (s[i++] == '+') ? 1 : -1;
+        else if (s[i] == '(')
+        {
+            i++;  // Move past '('
+            int temp = f(s, i);
+            i++;  // Move past ')'
+
+            res += temp * sign;
+        }
+    }
+
+    return res;
+}
+};
