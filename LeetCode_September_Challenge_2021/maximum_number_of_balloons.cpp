@@ -50,3 +50,30 @@ public:
         return min({aCount,bCount,lCount,oCount,nCount});
     }
 };
+
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+class Solution {
+public:
+    int findNumberMaxPattern(string text,string pattern){
+        int m=text.length(),n=pattern.length(),ans=INT_MAX;
+        int freqText[26]={0},freqPattern[26]={0};
+        for(int i=0;i<m;i++){
+            freqText[text[i]-'a']++;
+        }
+        for(int i=0;i<n;i++){
+            freqPattern[pattern[i]-'a']++;
+        }
+        for(int i=0;i<26;i++){
+            if(freqPattern[i]){
+                ans=min(ans,freqText[i]/freqPattern[i]);
+            }
+        }
+        return ans;
+    }
+    int maxNumberOfBalloons(string text) {
+        string pattern="balloon";
+        return findNumberMaxPattern(text,pattern);
+    }
+};
