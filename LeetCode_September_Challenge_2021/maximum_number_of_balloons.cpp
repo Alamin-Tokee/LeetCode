@@ -28,3 +28,25 @@ public:
 
 //Time Complexity O(n)
 //Space Complexity O(1)
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        int aCount=0,bCount=0,lCount=0,oCount=0,nCount=0;
+        for(int i=0;i<text.length();i++){
+            if(text[i]=='b'){
+                bCount++;
+            }else if(text[i]=='a'){
+                aCount++;
+            }else if(text[i]=='l'){
+                lCount++;
+            }else if(text[i]=='o'){
+                oCount++;
+            }else if(text[i]=='n'){
+                nCount++;
+            }
+        }
+        lCount=lCount/2;
+        oCount=oCount/2;
+        return min({aCount,bCount,lCount,oCount,nCount});
+    }
+};
