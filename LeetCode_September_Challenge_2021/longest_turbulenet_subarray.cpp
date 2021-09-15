@@ -62,3 +62,34 @@ public:
         return maxSize;
     }
 };
+
+
+//Dinamic Programming
+//Time Complexity O(n)
+//Space Complexity O(n)
+class Solution {
+public:
+    int maxTurbulenceSize(vector<int>& a) {
+        int n=a.size();
+        vector<pair<int,int>>dp(n,pair<int,int>(1,1));
+        int ans=1;
+        for(int k=0;k<n-1;++k){
+            if(k%2==0){
+                if(a[k]>a[k+1]){
+                    dp[k+1].first=dp[k].first+1;
+                }else if(a[k]<a[k+1]){
+                    dp[k+1].second=dp[k].second+1;
+                }
+            }
+            else{
+                if(a[k]<a[k+1]){
+                    dp[k+1].first=dp[k].first+1;
+                }else if(a[k]>a[k+1]){
+                    dp[k+1].second=dp[k].second+1;
+                }
+            }  
+            ans=max(ans,max(dp[k+1].first,dp[k+1].second));
+        }
+        return ans;
+    }
+};
