@@ -64,7 +64,7 @@ public:
 };
 
 
-//Dinamic Programming
+//Dynamic Programming
 //Time Complexity O(n)
 //Space Complexity O(n)
 class Solution {
@@ -91,5 +91,28 @@ public:
             ans=max(ans,max(dp[k+1].first,dp[k+1].second));
         }
         return ans;
+    }
+};
+
+
+//Recursion
+//Time Complexity O(n)
+//Space Complexity O(1)
+class Solution {
+public:
+    int solve(vector<int>& arr,int i,int n,int lastsign,int len){
+        if(i>n-2) return len;
+        
+        if((lastsign==0 || lastsign < 0) && arr[i]-arr[i+1]>0) return solve(arr,i+1,n,1,len+1);
+        if((lastsign==0 || lastsign > 0) && arr[i]-arr[i+1]<0) return solve(arr,i+1,n,-1,len+1);
+        return len;
+    }
+    int maxTurbulenceSize(vector<int>& arr) {
+        int n=arr.size();
+        int ans=0;
+        for(int i=0;i<n;i++){
+            ans=max(ans,solve(arr,i,n,0,0));
+        }
+        return ans+1;
     }
 };
