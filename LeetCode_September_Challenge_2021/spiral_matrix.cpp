@@ -152,3 +152,51 @@ public:
 };
 
 
+//From Experience Coder
+class Solution {
+    typedef vector<int> vi;
+    typedef vector<vi> vvi;
+public:
+    /*
+->  Idea is to have five variables: padL, padR, padU, padD, step where: pad => padding
+    and L => left, R => right, U => upper, D => down. So, padL => left padding and so on.
+    step => variable used to traverse row or col. step := 1 (inc. by 1) or -1 (dec. by 1)
+->  m := matrix.size() (no. of rows) and n := matrix[0].size() (no. of cols)
+->  Init: padL := 0, padU := 0, padR := n - 1, padD := m - 1
+->  Idea is to use padL and padR for traversing in a row by varying col variable and using
+    step for increment/ decrement (check traverseRow function below for more details)
+->  Idea is to use padU and padD for traversing in a col by varying row variable and using
+    step for increment/ decrement (check traverseCol function below for more details)
+->  spiral function is the recursive function that traverse row and cols in alternating 
+    fashion and then recursively calling itself to traverse the remaining spiral.
+->  Base Case: we stop if padU > padD or padL > padR 
+->  Finally the result is stored in res vector and it is returned by the main function.
+    */
+    int padL, padR, padU, padD;
+    vector<int> res;
+    void traverseRow(vvi &mat, int start, int end, int &row, int step) {
+        if (padU > padD or padL > padR) return;
+        for (int col = start; col != end + step; col += step)
+            res.push_back(mat[row][col]);
+        row += step;
+    }
+    void traverseCol(vvi &mat, int start, int end, int &col, int step) {
+        if (padU > padD or padL > padR) return;
+        for (int row = start; row != end + step; row += step)
+            res.push_back(mat[row][col]);
+        col -= step;
+    }
+    void spiral(vvi &mat) {
+        if (padU > padD or padL > padR) return;
+        traverseRow(mat, padL, padR, padU, 1);
+        traverseCol(mat, padU, padD, padR, 1);
+        traverseRow(mat, padR, padL, padD, -1);
+        traverseCol(mat, padD, padU, padL, -1);
+        spiral(mat);
+    }
+    vector<int> spiralOrder(vvi &matrix) {
+        padL = 0, padU = 0, padR = matrix[0].size() - 1, padD = matrix.size() - 1;
+        spiral(matrix);
+        return res;
+    }
+};
