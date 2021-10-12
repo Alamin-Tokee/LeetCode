@@ -7,6 +7,17 @@
  * int guess(int num);
  */
 
+
+class Solution{
+public:
+    int guessNumber(int n) {
+        for (int i = 1; i < n; i++)
+            if (guess(i) == 0)
+                return i;
+        return n;
+    }
+};
+
 class Solution {
 public:
     int guessNumber(int n) {
