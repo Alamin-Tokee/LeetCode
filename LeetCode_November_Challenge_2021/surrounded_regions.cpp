@@ -1,7 +1,3 @@
-//Bfs Solution
-//Time Complexity O(n*m)
-//Space Complexity O(1)
-
 class Solution {
 public:
     void bfs(vector<vector<char>>& g,int r,int c){
@@ -46,7 +42,6 @@ public:
 };
 
 
-//DFS Approach
 class Solution {
 public:
     void dfs(vector<vector<char>>& g,int r,int c){
@@ -81,6 +76,7 @@ public:
         }
     }
 };
+
 
 
 
