@@ -37,3 +37,32 @@ public:
 
 
 
+
+class Solution {
+public:
+     //int offsets[] = {0, 1, 0, -1, 0};
+    void dfs(vector<vector<char>>& g,int r,int c){
+        if (r < 0 || r >= g.size() || c < 0 || c >= g[0].size() || g[r][c] != '1')  return;
+        
+        g[r][c]='0';
+        
+        dfs(g,r+1,c);
+        dfs(g,r-1,c);
+        dfs(g,r,c+1);
+        dfs(g,r,c-1);
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        int ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]=='1'){
+                    ans++;
+                    dfs(grid,i,j);
+                }
+            }
+        }
+        return ans;
+    }
+};
