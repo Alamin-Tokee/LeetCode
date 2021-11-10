@@ -85,6 +85,33 @@ public:
 
 
 
+class Solution {
+public:
+    const int DX[4] = {-1, 0, 1, 0};
+    const int DY[4] = {0, 1, 0, -1};
+    void dfs(vector<vector<char>>& g,int r,int c){
+        if(r < 0 || c < 0 || r >= g.size() || c >= g[0].size() || g[r][c]!='O') return;
+        
+        g[r][c] = 'A';
+        for (int i = 0; i < 4; i++)
+            dfs(g, r + DX[i], c + DY[i]);  
+    }
+    void solve(vector<vector<char>>& board) {
+        int n=board.size();
+        int m=board[0].size();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if((i==0 || i==n-1 || j==0 || j==m-1) && board[i][j]=='O')
+                    dfs(board,i,j);
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                board[i][j]=board[i][j] == 'A' ? 'O' : 'X';
+            }
+        }
+    }
+};
 
 
 
