@@ -20,6 +20,20 @@ public:
     }
 };
 
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<long> dp(amount+1,INT_MAX);
+        dp[0]=0;
+        for(auto &coinVal : coins){
+            for(int i=coinVal;i<amount+1;++i){
+                dp[i] = min(dp[i],1+dp[i-coinVal]);
+            }
+        }
+        return dp[amount] == INT_MAX ? -1 : dp[amount];
+    }
+}; 
+
 
 class Solution {
 public:
