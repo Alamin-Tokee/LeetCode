@@ -12,6 +12,7 @@ public:
                 even++;
             }
         }
+        
         return min(odd,even);
     }
 };
